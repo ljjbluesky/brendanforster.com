@@ -162,3 +162,19 @@ dotnet build -c Release
 dotnet sourcelink test bin/Release/netstandard2.0/repro.dll
 ```
  
+ The output from that last command is what I'm interested in:
+
+ ```
+ 1 Documents with errors:
+603575e262fbd650e2ecd08777d1c34ba24c2e48a036d8317f6a5c30b3a5793d sha256 csharp /Users/shiftkey/src/dotnetcore-sourcelink-test-bug/obj/Release/netstandard2.0/repro.AssemblyInfo.cs
+https://raw.githubusercontent.com/shiftkey/dotnetcore-sourcelink-test-bug/c49a1900e297a776d414a333862b2179a721fe47/obj/Release/netstandard2.0/repro.AssemblyInfo.cs
+error: url failed NotFound: Not Found
+sourcelink test failed
+```
+
+Now, with our simpler repro, we can dig into what's happening.
+
+### Digging into the internals
+
+I shared my repro on Twitter and [Dave Glick](https://daveaglick.com) provided
+[some interesting insights immediately](https://github.com/shiftkey/dotnetcore-sourcelink-test-bug/issues/1#issue-556610654).
