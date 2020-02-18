@@ -1,0 +1,35 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{{ hugo.Generator }}
+
+{{ if eq .Page.RelPermalink "/" }}
+<title>{{ .Title }}</title>
+<meta property="og:title" content="{{ .Title }}">
+<meta property="og:type" content="website">
+{{ else }}
+<title>{{ .Title }} - {{ .Site.Title }}</title>
+<meta property="og:title" content="{{ .Title }} - {{ .Site.Title }}">
+{{ end }}
+
+{{ if eq .Page.RelPermalink "/" }}
+<meta name="description" content="{{ .Site.Params.description }}">
+{{ else }}
+  {{ if .Description }}
+  <meta name="description" content="{{ .Description }}">
+  {{ end }}
+{{ end }}
+
+{{ if .Keywords }}
+<meta property="keywords" content ="{{ delimit .Keywords ", " }}">
+{{ end }}
+
+{{ with .OutputFormats.Get "RSS" }}
+<link href="{{ .RelPermalink }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" />
+{{ end }}
+
+<link rel="icon" href="/images/logo.png">
+
+<link rel="stylesheet" href="{{ "css/main.css" | absURL }}" media="all">
+<link rel="stylesheet" href="{{ "css/fonts.css" | absURL }}">
+<link rel="stylesheet" href="{{ "css/dark/main.css" | absURL }}" media="all">
+<link rel="stylesheet" href="{{ "css/syntax.css" | absURL }}">

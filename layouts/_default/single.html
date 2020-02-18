@@ -1,9 +1,15 @@
+{{if eq .Section "series"}}
+{{ partial "dark-header.html" . }}
+{{ else }}
 {{ partial "header.html" . }}
+{{ end }}
 
 <main class="content" role="main">
   <article class="article">
     <h1 class="article-title">{{ .Title }}</h1>
     {{ if eq .Section "notes" }}
+    <span class="article-date">Last updated: {{ .Page.Lastmod.Format "2006-01-02" }}</span>
+    {{ else if eq .Section "series" }}
     <span class="article-date">Last updated: {{ .Page.Lastmod.Format "2006-01-02" }}</span>
     {{ else if eq .Section "post" }}
     <span class="article-date">{{ .Date.Format "2006-01-02" }}</span>
@@ -30,4 +36,8 @@
 
 </main>
 
+{{if eq .Section "series"}}
+{{ partial "dark-footer.html" . }}
+{{ else }}
 {{ partial "footer.html" . }}
+{{ end }}

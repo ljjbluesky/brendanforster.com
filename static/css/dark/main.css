@@ -1,0 +1,50 @@
+/* Originals */
+ .Dark-room-with-light-and-smoke-background-1-hex { color: #07080D; }
+.Dark-room-with-light-and-smoke-background-2-hex { color: #F0F0F2; }
+.Dark-room-with-light-and-smoke-background-3-hex { color: #293040; }
+.Dark-room-with-light-and-smoke-background-4-hex { color: #5E6D8C; }
+.Dark-room-with-light-and-smoke-background-5-hex { color: #4C5D73; }
+
+/* Tweaks */
+.Dark-room-with-light-and-smoke-background-1-hex { color: rgb(12, 14, 26); }
+.Dark-room-with-light-and-smoke-background-2-hex { color: #F0F0F2; }
+.Dark-room-with-light-and-smoke-background-3-hex { color: #293040; }
+.Dark-room-with-light-and-smoke-background-4-hex { color: #5E6D8C; }
+.Dark-room-with-light-and-smoke-background-5-hex { color: #4C5D73; }
+
+html {
+  background-color: rgb(12, 14, 26);
+}
+
+.header {
+  background-color: #5E6D8C;
+}
+
+.nav-links a {
+  color: #F0F0F2;
+}
+
+.content {
+  color: #F0F0F2;
+}
+
+.content a, .content a:visited, .list a, .list a:visited {
+  color: #5E6D8C;
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6, .article-title {
+  color: #5E6D8C;
+}
+
+blockquote {
+  background: #4C5D73
+}
+
+blockquote p {
+  margin-right: 5px;
+}
+
+code {
+  background: #293040;
+}
