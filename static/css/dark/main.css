@@ -24,14 +24,35 @@ html {
   color: #F0F0F2;
 }
 
-.content {
+.content, .pagination {
   color: #F0F0F2;
+  hyphens: none;
 }
 
-.content a, .content a:visited, .list a, .list a:visited {
+.content a, .pagination a, .content a:visited, .list a, .list a:visited {
   color: #5E6D8C;
   text-decoration: none;
 }
+
+.pagination {
+  max-width: 700px;
+  margin: 60px auto 80px;
+  padding: 0 15px;
+  font-size: 16px;
+  display: block;
+}
+
+.pagination .next {
+  float: right;
+  text-align: right;
+}
+
+@media (min-width: 900px) {
+  .pagination {
+    max-width: 900px;
+  }
+}
+
 
 h1, h2, h3, h4, h5, h6, .article-title {
   color: #5E6D8C;
