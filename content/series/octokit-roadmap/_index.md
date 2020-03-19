@@ -1,5 +1,5 @@
 ---
-title: "The future of Octokit.net - and a potential roadmap to suit"
+title: "A potential roadmap for Octokit.net"
 ---
 
 I've found myself back in charge of [Octokit.net](https://github.com/octokit/octokit.net)

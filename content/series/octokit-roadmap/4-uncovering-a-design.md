@@ -5,7 +5,7 @@ slug: "uncovering-a-design-and-components"
 description: "The proof of concept uncovered some promising features, but it's
 often best to throw away that first system and start fresh. So I did that, but
 also took time to write up my thoughts before diving back into the code."
-weight: 3
+weight: 4
 ---
 
 ### The Components

@@ -7,7 +7,7 @@ weight: 2
 ---
 
 I won't share the code I used to prove this out because it was disorganized and
-a very messy, but I was able to generate a slice of the API as C# code that
+a bit of a mess, but I was able to generate a slice of the API as C# code that
 almost compiled except that I'd omitted requests and response types:
 
 ```
@@ -100,29 +100,37 @@ namespace Octokit
 ...
 ```
 
-## Initial Notes
-
 If you're not familiar with the internals of Octokit.net, these two files help
 to illustrate the basics of what we need to generate:
 
  - clients contain methods that correspond to an action the API supports
  - clients can also contain child clients (as properties) to group related
-   features
+   parts of the API
+
+This was a great little exercise to refresh my memory on how things are organized
+in the codebase, and I ended up doing things a bit differently for this proof of
+concept.
+
+## Organizing the client API
 
 This is the first place where I diverged from how Octokit is organized.
-Previously we'd group clients based on how they are listed on the [developer documentation](https://developer.github.com/v3/) which worked up to a point, but this sample used the
-paths as a source of truth.
+Currently we organize clients based on how they are listed on the
+[developer documentation](https://developer.github.com/v3/) which worked up to
+a point, but this sample used the paths as a source of truth.
 
 To use the example above:
 
  - For the API route `/marketplace_listing/accounts/{account_id}`...
- - The corresponding client is `IMarketplaceListingAccountsClient` in the codebase...
+ - The corresponding client is named `IMarketplaceListingAccountsClient` in the
+   codebase...
  - Which the caller can access this at `client.MarketplaceListing.Acccounts.Get(account_id)`
 
-I'm going to keep following this convention for new routes, but I suspect this
+I'm going to keep following this convention for new routes, and I suspect this
 will introduce some breaking changes down the track when I need to start to
 generate code for existing routes. For example, `/users/*` and `/user/*` are
 routes that are both normalized to `client.User.*` in Octokit.net currently.
+
+## Organizing the source
 
 Another important thing is the interface and implementation being in the same
 file. This is different to how Octokit.net is currently structured, with
@@ -134,20 +142,28 @@ much easier, rather than having to know which files relate to eachother. I also
 plan to include the request and response models in the same file, but I didn't
 get that far with the proof of concept.
 
-You'll notice that the constructor accepts a `HttpClient` but doesn't actually
-use it. This is also different from the current Octokit.net behaviour (where
+## Client internals
+
+You may notice that the constructor accepts a `HttpClient` but doesn't use it
+currently. This is also different from the current Octokit.net behaviour (where
 `ApiConnection` is the constructor parameter). I'll switch back to that for the
 actual implementation, but I'd love to get to the point where we can remove
-our internal abstractions with components that exist for:
+our internal abstractions with components that exist for some parts, in favour
+of using built-in features:
 
  - making HTTP requests based on the required verb and path
- - parsing JSON response to turn JSON into C# objects and vice versa
+ - parsing JSON response into C# objects and vice versa
 
 `HttpClient` is already used inside Octokit.net, but I'd love to make it's use
-more explicit rather than burying it in a bunch of abstractions.
+more explicit rather than burying it in a bunch of abstractions. We also need
+to be mindful of GitHub Enterprise environments, as these routes require a 
+prefix to the path (`/api/v3`) when being invoked. 
 
 The `System.Text.Json.JsonSerializer` namespace (only available since .NET Core
 3.0) could be a replacement for our `SimpleJson`-based parsing, but I think we
 can survive with that currently because it's being built from source for our use
-case. Maybe this will be worth discussing when we have a case to make for
-dropping support for .NET Framework completely.
+case and has a lot of conventions and opinions that would also need to be
+ported.
+
+Maybe this will be worth discussing when we have a case to make for dropping
+support for .NET Framework completely.
