@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Uncovering a design and the components"
-slug: "uncovering-a-design-and-components"
+title: "Uncovering a design"
+slug: "uncovering-a-design"
 description: "The proof of concept uncovered some promising features, but it's
 often best to throw away that first system and start fresh. So I did that, but
 also took time to write up my thoughts before diving back into the code."
